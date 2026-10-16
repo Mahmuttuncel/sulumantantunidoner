@@ -77,12 +77,12 @@ const CONFIG = {
 
   // Popüler ürünler
   popular: [
-    { name: "Et Döner Dürüm (80g)", desc: "%100 yaprak et döner, ince lavaş, domates, sumaklı soğan.", price: 340, badge: "En çok satan", emoji: "🌯", img: "Gorsel/Gorsel1.jpg" },
-    { name: "Dürüm Tantuni", desc: "Mersin usulü saçta sotelenmiş dana eti, domates, maydanoz, sumaklı soğan.", price: 240, badge: "Mersin Lezzeti", emoji: "🌯", img: "Gorsel/Gorsel1.jpg" },
-    { name: "Tavuk Döner Dürüm (80g)", desc: "Eski usul soslu tavuk döner, patates, kornişon turşu, ince lavaş.", price: 190, badge: "Fiyatı dost", emoji: "🍗", img: "Gorsel/Gorsel1.jpg" },
-    { name: "Antakya Usulü Tavuk Dürüm", desc: "Özel soslu lavaş, sarımsaklı mayonez, çıtır patates.", price: 190, badge: "Özel Soslu", emoji: "🌯", img: "Gorsel/Gorsel1.jpg" },
-    { name: "Et Döner İskender (1 Porsiyon)", desc: "Pide üstü %100 yaprak et döner (120g), tereyağı, domates sosu, süzme yoğurt.", price: 490, badge: "Ustanın favorisi", emoji: "🧈", img: "Gorsel/Gorsel1.jpg" },
-    { name: "Zurna Tavuk Dürüm", desc: "Ekstra uzun çıtır lavaş, bol soslu tavuk döner, patates.", price: 190, badge: "Doyurucu", emoji: "🥙", img: "Gorsel/Gorsel1.jpg" }
+    { name: "Et Döner Dürüm (80g)", desc: "%100 yaprak et döner, ince lavaş, domates, sumaklı soğan.", price: 340, badge: "En çok satan", emoji: "🌯", img: "Gorsel/et_doner.jpg" },
+    { name: "Dürüm Tantuni", desc: "Mersin usulü saçta sotelenmiş dana eti, domates, maydanoz, sumaklı soğan.", price: 240, badge: "Mersin Lezzeti", emoji: "🌯", img: "Gorsel/durum_tantuni.jpg" },
+    { name: "Tavuk Döner Dürüm (80g)", desc: "Eski usul soslu tavuk döner, patates, kornişon turşu, ince lavaş.", price: 190, badge: "Fiyatı dost", emoji: "🍗", img: "Gorsel/tavuk_doner.jpg" },
+    { name: "Antakya Usulü Tavuk Dürüm", desc: "Özel soslu lavaş, sarımsaklı mayonez, çıtır patates.", price: 190, badge: "Özel Soslu", emoji: "🌯", img: "Gorsel/antakya_durum.jpg" },
+    { name: "Et Döner İskender (1 Porsiyon)", desc: "Pide üstü %100 yaprak et döner (120g), tereyağı, domates sosu, süzme yoğurt.", price: 490, badge: "Ustanın favorisi", emoji: "🧈", img: "Gorsel/iskender.jpg" },
+    { name: "Yoğurtlu Tantuni", desc: "Lavaş tantuni dilimleri üzeri süzme yoğurt ve kızgın tereyağlı pul biber.", price: 280, badge: "Özel Lezzet", emoji: "🥣", img: "Gorsel/yogurtlu_tantuni.jpg" }
   ],
 
   // Menü: Kategoriler ve ürünler
@@ -166,12 +166,12 @@ const CONFIG = {
 
   // Instagram ızgarası
   instagramPosts: [
-    { img: "Gorsel/Gorsel1.jpg", alt: "Saçta pişen tantuni", emoji: "🔥" },
-    { img: "Gorsel/Gorsel1.jpg", alt: "Dürüm tantuni yakın çekim", emoji: "🌯" },
-    { img: "Gorsel/Gorsel1.jpg", alt: "%100 yaprak et döner kesimi", emoji: "🥙" },
-    { img: "Gorsel/Gorsel1.jpg", alt: "Yoğurtlu tantuni", emoji: "🥣" },
-    { img: "Gorsel/Gorsel1.jpg", alt: "Yayık ayran", emoji: "🥛" },
-    { img: "Gorsel/Gorsel1.jpg", alt: "Sülüman Tantuni & Döner salonu", emoji: "🏪" }
+    { img: "Gorsel/hero_tantuni.jpg", alt: "Kızgın saçta pişen tantuni", emoji: "🔥" },
+    { img: "Gorsel/durum_tantuni.jpg", alt: "Dürüm tantuni lezzeti", emoji: "🌯" },
+    { img: "Gorsel/et_doner.jpg", alt: "%100 yaprak et döner", emoji: "🥙" },
+    { img: "Gorsel/yogurtlu_tantuni.jpg", alt: "Yoğurtlu tantuni tabağı", emoji: "🥣" },
+    { img: "Gorsel/antakya_durum.jpg", alt: "Antakya usulü soslu döner", emoji: "🌯" },
+    { img: "Gorsel/iskender.jpg", alt: "Tereyağlı yaprak et İskender", emoji: "🧈" }
   ],
 
   // Müşteri yorumları
