@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!-- =====================================================================
+     AYAR 1 / 2 — SEO & PAYLAŞIM ETİKETLERİ
+     Bu etiketler statik kalmalı (WhatsApp / Instagram / Facebook önizlemeleri
+     JavaScript çalıştırmaz). İşletme adı, ilçe ve alan adınızı buraya yazın.
+     ===================================================================== -->
+<title>Sülüman Tantuni & Döner | Erdemli Mersin – %100 Yaprak Döner & Tantuni</title>
+<meta name="description" content="Erdemli Mersin'de %100 yaprak et döner, Antakya usulü tavuk döner ve kızgın saçta pişen enfes tantuni. WhatsApp'tan hemen sipariş verin: 0 324 515 19 77">
+<meta name="keywords" content="sülüman tantuni döner, erdemli tantuni, erdemli döner, yaprak et döner erdemli, mersin tantuni, antakya usulü tavuk döner, paket servis">
+<link rel="canonical" href="https://www.ornekalanadi.com/">
+<meta name="theme-color" content="#F6EBD9">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:site_name" content="Sülüman Tantuni & Döner">
+<meta property="og:title" content="Sülüman Tantuni & Döner – Erdemli / Mersin">
+<meta property="og:description" content="%100 yaprak et döner, Antakya usulü tavuk döner ve sıcak tantuni. Menüyü incele, WhatsApp'tan sipariş ver.">
+<meta property="og:url" content="https://www.ornekalanadi.com/">
+<!-- BURAYA GERÇEK FOTOĞRAF: 1200x630 px paylaşım görseli (og-image.jpg) -->
+<meta property="og:image" content="Gorsel/Gorsel1.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- Favicon / Site İkonu -->
+<link rel="icon" type="image/png" href="Gorsel/icon.png">
+<link rel="apple-touch-icon" href="Gorsel/icon.png">
+
+<!-- Google Fonts (tek harici bağımlılık) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Stiller -->
+<link rel="stylesheet" href="style.css">
+
+<!-- AYAR 2 / 2 — TÜM İÇERİK: metinler, fiyatlar, iletişim, saatler → config.js -->
+<script src="config.js"></script>
+
+<!-- Tema: kayıtlı tercih yoksa varsayılan açık (kremli) tema. Yanıp sönmeyi önlemek için erken çalışır. -->
+<script>
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('theme'); } catch (e) {}
+    document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+    document.documentElement.classList.add('js');
+  })();
+</script>
+
+</head>
+
+<body>
+<a class="skip" href="#main">İçeriğe geç</a>
+
+<!-- ============================ HEADER ============================ -->
+<header class="hdr" id="hdr">
+  <div class="container hdr__in">
+    <a class="logo" href="#top" id="logo" aria-label="Ana sayfa"></a>
+    <nav class="nav" aria-label="Ana menü">
+      <a href="#menu">Menü</a>
+      <a href="#neden-biz">Neden Biz</a>
+      <a href="#siparis">Sipariş</a>
+      <a href="#konum">Konum</a>
+    </nav>
+    <div class="hdr__act">
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Koyu temaya geç" aria-pressed="false"></button>
+      <a class="btn btn--red btn--sm hdr__order" id="hdr-order" target="_blank" rel="noopener">Sipariş Ver</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ============================ 1. HERO ============================ -->
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <!-- BURAYA GERÇEK VİDEO / FOTOĞRAF: CONFIG.hero.video veya CONFIG.hero.image -->
+    <div class="hero__media" id="hero-media"></div>
+    <div class="hero__overlay"></div>
+    <div class="container hero__content">
+      <p class="hero__eyebrow" id="hero-eyebrow"></p>
+      <h1 class="hero__title" id="hero-title"></h1>
+      <p class="hero__sub" id="hero-sub"></p>
+      <div class="hero__cta">
+        <a class="btn btn--red btn--lg" id="hero-order" target="_blank" rel="noopener"></a>
+        <a class="btn btn--ghost btn--lg" href="#menu" id="hero-menu"></a>
+      </div>
+      <ul class="hero__chips" id="hero-chips"></ul>
+    </div>
+    <a class="hero__scroll" href="#populer" aria-label="Aşağı kaydır"></a>
+  </section>
+
+  <!-- ============================ 2. POPÜLER ============================ -->
+  <section class="section" id="populer" aria-labelledby="popular-title">
+    <div class="container">
+      <header class="section__head reveal">
+        <span class="eyebrow" data-t="popular.eyebrow"></span>
+        <h2 class="h2" id="popular-title" data-t="popular.title"></h2>
+        <p class="lead" data-t="popular.sub"></p>
+      </header>
+      <div class="grid-cards" id="popular-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============================ 3. MENÜ (#menu → QR kod buraya bağlanır) ============================ -->
+  <section class="section section--alt" id="menu" aria-labelledby="menu-title">
+    <div class="container">
+      <header class="section__head reveal">
+        <span class="eyebrow" data-t="menu.eyebrow"></span>
+        <h2 class="h2" id="menu-title" data-t="menu.title"></h2>
+        <p class="lead" data-t="menu.sub"></p>
+      </header>
+      <div class="tabs-wrap">
+        <div class="tabs" role="tablist" aria-label="Menü kategorileri" id="menu-tabs"></div>
+      </div>
+      <div id="menu-panels"></div>
+      <p class="menu-note">Fiyatlara KDV dahildir. Fiyatlar önceden haber verilmeksizin değişebilir.</p>
+    </div>
+  </section>
+
+  <!-- ============================ 4. NEDEN BİZ ============================ -->
+  <section class="section" id="neden-biz" aria-labelledby="why-title">
+    <div class="container">
+      <header class="section__head section__head--center reveal">
+        <span class="eyebrow" data-t="why.eyebrow"></span>
+        <h2 class="h2" id="why-title" data-t="why.title"></h2>
+        <p class="lead" data-t="why.sub"></p>
+      </header>
+      <div class="why" id="why-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============================ 5. SİPARİŞ ============================ -->
+  <section class="section order" id="siparis" aria-labelledby="order-title">
+    <div class="container">
+      <header class="section__head reveal">
+        <span class="eyebrow" data-t="order.eyebrow"></span>
+        <h2 class="h2" id="order-title" data-t="order.title"></h2>
+        <p class="lead" data-t="order.sub"></p>
+      </header>
+      <div class="order-grid" id="order-grid"></div>
+      <div id="platforms"></div>
+    </div>
+  </section>
+
+  <!-- ============================ 6. INSTAGRAM ============================ -->
+  <section class="section" id="instagram" aria-labelledby="ig-title">
+    <div class="container">
+      <header class="section__head section__head--center reveal">
+        <span class="eyebrow" data-t="instagram.eyebrow"></span>
+        <h2 class="h2" id="ig-title" data-t="instagram.title"></h2>
+        <p class="lead" data-t="instagram.sub"></p>
+      </header>
+      <!-- BURAYA GERÇEK FOTOĞRAF: CONFIG.instagramPosts içindeki img alanları -->
+      <div class="ig-grid" id="ig-grid"></div>
+      <div class="ig-cta reveal"><a class="btn btn--red btn--lg" id="ig-btn" target="_blank" rel="noopener"></a></div>
+    </div>
+  </section>
+
+  <!-- ============================ 7. YORUMLAR ============================ -->
+  <section class="section section--alt" id="yorumlar" aria-labelledby="reviews-title">
+    <div class="container">
+      <header class="section__head section__head--center reveal">
+        <span class="eyebrow" data-t="reviews.eyebrow"></span>
+        <h2 class="h2" id="reviews-title" data-t="reviews.title"></h2>
+        <p class="lead" data-t="reviews.sub"></p>
+      </header>
+      <div class="reviews" id="reviews"></div>
+    </div>
+  </section>
+
+  <!-- ============================ 8. KONUM & SAATLER ============================ -->
+  <section class="section" id="konum" aria-labelledby="loc-title">
+    <div class="container">
+      <header class="section__head reveal">
+        <span class="eyebrow" data-t="location.eyebrow"></span>
+        <h2 class="h2" id="loc-title" data-t="location.title"></h2>
+        <p class="lead" data-t="location.sub"></p>
+      </header>
+      <div class="loc">
+        <div class="map reveal" id="map"></div>
+        <div class="info reveal" style="--d:120ms" id="info"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ============================ 9. FOOTER ============================ -->
+<footer class="ftr">
+  <div class="container">
+    <div class="ftr__grid" id="ftr-grid"></div>
+    <div class="ftr__bottom" id="ftr-bottom"></div>
+  </div>
+</footer>
+
+<!-- ============================ MOBİL SABİT BAR ============================ -->
+<nav class="mbar" id="mbar" aria-label="Hızlı iletişim"></nav>
+
+<noscript>
+  <p style="padding:20px;text-align:center">Sipariş için bizi arayın veya WhatsApp'tan yazın.</p>
+</noscript>
+
+<script src="app.js"></script>
+</body>
+</html>
