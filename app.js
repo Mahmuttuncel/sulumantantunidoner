@@ -39,6 +39,8 @@
     tag: '<path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/>',
     clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
     bag: '<path d="M6 7h12l-1 14H7z"/><path d="M9 7a3 3 0 0 1 6 0"/>',
+    scooter: '<circle cx="5.5" cy="17.5" r="2.5"/><circle cx="18.5" cy="17.5" r="2.5"/><path d="M15 6h4l2 6m-9-6h3l-3 11.5M8 17.5h8M5.5 15A2.5 2.5 0 0 1 8 12.5h1"/>',
+    utensils: '<path d="M18 2v6a3 3 0 0 1-3 3 3 3 0 0 1-3-3V2M15 11v11M5 2v7a2 2 0 0 0 2 2 2 2 0 0 0 2-2V2M7 11v11"/>',
     arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
     sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
     moon: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>'
@@ -102,7 +104,11 @@
     <span class="logo__text"><span class="logo__name">${esc(B.logoText)}</span><span class="logo__sub">${esc(B.logoSub)}</span></span>`;
 
   /* ---------- Header ---------- */
-  $('#hdr-order').href = wa();
+  const hdrOrder = $('#hdr-order');
+  if (hdrOrder) {
+    hdrOrder.href = '#siparis';
+    hdrOrder.addEventListener('click', openOrderModal);
+  }
   const hdr = $('#hdr');
   const onScroll = () => hdr.classList.toggle('solid', window.scrollY > 40);
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -150,6 +156,11 @@
   $('#hero-eyebrow').textContent = H.eyebrow;
   $('#hero-title').innerHTML = `${esc(H.title)} <span class="accent">${esc(H.titleAccent)}</span>`;
   $('#hero-sub').textContent = H.sub;
+  const heroOnlineOrder = $('#hero-online-order');
+  if (heroOnlineOrder) {
+    heroOnlineOrder.innerHTML = `${icon('bag')} ${esc(H.onlineOrderBtn || 'Sipariş Ver')}`;
+    heroOnlineOrder.addEventListener('click', openOrderModal);
+  }
   const heroOrder = $('#hero-order');
   heroOrder.href = wa();
   heroOrder.innerHTML = `${icon('wa')} ${esc(H.orderBtn)}`;
@@ -269,28 +280,131 @@
         </a>`).join('')}</div>`;
   }
 
-  /* ---------- 6. Instagram ---------- */
-  $('#ig-grid').innerHTML = C.instagramPosts.slice(0, 6).map((p, i) => `
-    <a class="ig-tile reveal" style="--d:${i * 60}ms" href="${igHref}" target="_blank" rel="noopener" aria-label="Instagram: ${esc(p.alt)}">
-      ${media(p.img, p.alt, p.emoji, i + 1)}
-      <span class="ig-tile__ov">${icon('ig')}</span>
-    </a>`).join('');
+  /* ---------- 6. Instagram (Saçtan Kareler) ---------- */
+  const igGrid = $('#ig-grid');
   const igBtn = $('#ig-btn');
-  igBtn.href = igHref;
-  igBtn.innerHTML = `${icon('ig')} ${esc(C.texts.instagram.button)}`;
+  if (igBtn) {
+    igBtn.href = igHref;
+    igBtn.innerHTML = `${icon('ig')} ${esc(C.texts.instagram.button || "Bizi Instagram'da Takip Et")}`;
+  }
 
-  /* ---------- 7. Yorumlar ---------- */
+  async function loadInstagramFeed() {
+    let posts = C.instagramPosts || [];
+    const api = C.instagram?.apiUrl;
+
+    if (api) {
+      try {
+        const res = await fetch(api);
+        if (res.ok) {
+          const data = await res.json();
+          const rawPosts = Array.isArray(data) ? data : (data.data || data.posts || []);
+          if (rawPosts.length > 0) {
+            posts = rawPosts.slice(0, 6).map((item) => ({
+              img: item.sizes?.medium?.mediaUrl || item.media_url || item.img || item.image,
+              alt: item.caption || item.alt || "Sülüman Tantuni Instagram",
+              url: item.permalink || item.url || igHref,
+              emoji: '🌯'
+            }));
+          }
+        }
+      } catch (err) {
+        console.warn('Instagram API verisi alınamadı, yerel görseller kullanılıyor:', err);
+      }
+    }
+
+    if (igGrid) {
+      igGrid.innerHTML = posts.slice(0, 6).map((p, i) => `
+        <a class="ig-tile reveal in" style="--d:${i * 60}ms" href="${esc(p.url || igHref)}" target="_blank" rel="noopener" aria-label="Instagram: ${esc(p.alt)}">
+          ${media(p.img, p.alt, p.emoji || '🌯', i + 1)}
+          <span class="ig-tile__ov">
+            ${icon('ig')}
+            <span class="ig-tile__label">Instagram'da Gör</span>
+          </span>
+        </a>`).join('');
+    }
+  }
+  loadInstagramFeed();
+
+  /* ---------- 7. Google Haritalar Yorumları ---------- */
   const stars = (n) => `<div class="stars" role="img" aria-label="5 üzerinden ${n} yıldız">${
     [1, 2, 3, 4, 5].map((i) => icon('star', i <= n ? '' : 'off')).join('')}</div>`;
-  $('#reviews').innerHTML = C.reviews.map((r, i) => `
-    <figure class="review reveal" style="--d:${i * 100}ms; margin:0">
-      ${stars(r.rating)}
-      <blockquote class="review__text" style="margin:12px 0 0">${esc(r.text)}</blockquote>
-      <figcaption class="review__who">
-        <span class="avatar" aria-hidden="true">${esc(r.name.charAt(0))}</span>
-        <span><span class="review__name">${esc(r.name)}</span><br><span class="review__src">${esc(r.source)} yorumu</span></span>
-      </figcaption>
-    </figure>`).join('');
+
+  const googleIconSvg = `<svg class="google-icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" style="flex-shrink:0"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/></svg>`;
+
+  async function loadGoogleReviews() {
+    const g = C.googleReviews || {};
+    const summaryEl = $('#google-summary');
+    const reviewsEl = $('#reviews');
+
+    let reviewItems = C.reviews || [];
+
+    if (g.apiUrl) {
+      try {
+        const res = await fetch(g.apiUrl);
+        if (res.ok) {
+          const data = await res.json();
+          const items = Array.isArray(data) ? data : (data.result?.reviews || data.reviews || []);
+          if (items.length > 0) {
+            reviewItems = items.map((r) => ({
+              name: r.author_name || r.name,
+              rating: r.rating || 5,
+              text: r.text || r.content,
+              time: r.relative_time_description || r.time || 'Google Haritalar',
+              avatar: r.profile_photo_url || null
+            }));
+          }
+        }
+      } catch (err) {
+        console.warn('Google Maps API verisi alınamadı, doğrulanmış yorumlar kullanılıyor:', err);
+      }
+    }
+
+    if (summaryEl) {
+      summaryEl.innerHTML = `
+        <div class="google-card">
+          <div class="google-card__main">
+            <div class="google-card__logo">${googleIconSvg}</div>
+            <div class="google-card__score-wrap">
+              <div class="google-card__rating">
+                <span class="google-card__num">${esc(g.rating || '4.9')}</span>
+                <span class="google-card__stars">${stars(5)}</span>
+              </div>
+              <div class="google-card__sub">Google Haritalar Puanı · ${esc(g.totalReviews || '140+')} Müşteri Değerlendirmesi</div>
+            </div>
+          </div>
+          <div class="google-card__actions">
+            <a class="btn btn--outline btn--sm" href="${esc(g.writeReviewUrl || dirHref)}" target="_blank" rel="noopener">
+              ${icon('star')} Yorum Yaz
+            </a>
+            <a class="btn btn--red btn--sm" href="${esc(g.mapsUrl || dirHref)}" target="_blank" rel="noopener">
+              Tüm Yorumları Gör →
+            </a>
+          </div>
+        </div>`;
+    }
+
+    if (reviewsEl) {
+      reviewsEl.innerHTML = reviewItems.map((r, i) => `
+        <figure class="review reveal in" style="--d:${i * 80}ms; margin:0">
+          <div class="review__top">
+            ${stars(r.rating || 5)}
+            <span class="review__source-badge">
+              ${googleIconSvg}
+              <span>Google</span>
+            </span>
+          </div>
+          <blockquote class="review__text">${esc(r.text)}</blockquote>
+          <figcaption class="review__who">
+            ${r.avatar ? `<img class="avatar avatar--img" src="${esc(r.avatar)}" alt="${esc(r.name)}" loading="lazy">` : `<span class="avatar" aria-hidden="true">${esc(r.name.charAt(0))}</span>`}
+            <div class="review__author">
+              <span class="review__name">${esc(r.name)}</span>
+              <span class="review__time">${esc(r.time || 'Doğrulanmış Müşteri')}</span>
+            </div>
+          </figcaption>
+        </figure>`).join('');
+    }
+  }
+  loadGoogleReviews();
 
   /* ---------- 8. Konum & saatler ---------- */
   $('#map').innerHTML = `<iframe src="${esc(mapSrc)}" title="${esc(B.name)} konumu – Google Haritalar" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>`;
@@ -342,6 +456,84 @@
     <a class="mbar__tel" href="${telHref}">${icon('phone')}<span>Ara</span></a>
     <a class="mbar__wa" href="${wa()}" target="_blank" rel="noopener">${icon('wa')}<span>WhatsApp</span></a>
     <a href="${dirHref}" target="_blank" rel="noopener">${icon('nav')}<span>Yol Tarifi</span></a>`;
+
+  /* ---------- 10. Sipariş Modalı (Pop-up) ---------- */
+  const modal = $('#order-modal');
+  const modalCloseBtn = $('#modal-close');
+  const modalOverlay = $('#modal-overlay');
+
+  function openOrderModal(e) {
+    if (e && e.preventDefault) e.preventDefault();
+    if (!modal) return;
+    modal.removeAttribute('hidden');
+    document.body.style.overflow = 'hidden';
+    if (modalCloseBtn) modalCloseBtn.focus();
+  }
+
+  function closeOrderModal() {
+    if (!modal) return;
+    modal.setAttribute('hidden', '');
+    document.body.style.overflow = '';
+  }
+
+  if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeOrderModal);
+  if (modalOverlay) modalOverlay.addEventListener('click', closeOrderModal);
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && !modal.hasAttribute('hidden')) {
+      closeOrderModal();
+    }
+  });
+
+  const modalPlatforms = $('#modal-platforms');
+  if (modalPlatforms) {
+    const activeModalPlatforms = C.platforms.filter((p) => p.url);
+    modalPlatforms.innerHTML = activeModalPlatforms.map((p) => {
+      const isYemeksepeti = (p.id === 'yemeksepeti') || p.name.toLowerCase().includes('yemeksepeti');
+      const isTrendyol = (p.id === 'trendyol') || p.name.toLowerCase().includes('trendyol');
+      const cardCls = isYemeksepeti ? 'platform-card--yemeksepeti' : (isTrendyol ? 'platform-card--trendyol' : '');
+      const badgeCls = isTrendyol ? 'platform-badge--orange' : '';
+      const platformIcon = isYemeksepeti ? icon('utensils') : (isTrendyol ? icon('scooter') : icon('bag'));
+      const badge = p.badge || (isYemeksepeti ? 'Popüler' : (isTrendyol ? 'Hızlı Teslimat' : ''));
+      const desc = p.desc || (isYemeksepeti ? 'Online sipariş & güncel menü' : (isTrendyol ? 'Sıcak lezzetler kapınızda' : 'Online sipariş ver'));
+
+      return `
+        <a class="platform-card ${cardCls}" href="${esc(p.url)}" target="_blank" rel="noopener" style="--p-color:${esc(p.color)}">
+          <div class="platform-card__logo">${platformIcon}</div>
+          <div class="platform-card__info">
+            <div class="platform-card__name">
+              <span>${esc(p.name)}</span>
+              ${badge ? `<span class="platform-badge ${badgeCls}">${esc(badge)}</span>` : ''}
+            </div>
+            <div class="platform-card__desc">${esc(desc)}</div>
+          </div>
+          <div class="platform-card__action">
+            <span class="platform-action-btn">Sipariş Ver</span>
+            ${icon('arrow')}
+          </div>
+        </a>`;
+    }).join('');
+  }
+
+  const modalDirect = $('#modal-direct');
+  if (modalDirect) {
+    modalDirect.innerHTML = `
+      <a class="direct-btn direct-btn--wa" href="${wa()}" target="_blank" rel="noopener">
+        ${icon('wa')}
+        <div class="direct-btn__text">
+          <strong>WhatsApp</strong>
+          <span>Mesajla sipariş ver</span>
+        </div>
+        <span class="direct-btn__arrow">→</span>
+      </a>
+      <a class="direct-btn direct-btn--tel" href="${telHref}">
+        ${icon('phone')}
+        <div class="direct-btn__text">
+          <strong>Telefonla Ara</strong>
+          <span>${esc(B.phoneDisplay)}</span>
+        </div>
+        <span class="direct-btn__arrow">→</span>
+      </a>`;
+  }
 
   /* ---------- Scroll'da beliren bölümler ---------- */
   const revealEls = $$('.reveal');

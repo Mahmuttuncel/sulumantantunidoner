@@ -85,7 +85,8 @@
       <h1 class="hero__title" id="hero-title"></h1>
       <p class="hero__sub" id="hero-sub"></p>
       <div class="hero__cta">
-        <a class="btn btn--red btn--lg" id="hero-order" target="_blank" rel="noopener"></a>
+        <button type="button" class="btn btn--red btn--lg" id="hero-online-order" aria-haspopup="dialog" aria-controls="order-modal"></button>
+        <a class="btn btn--wa btn--lg" id="hero-order" target="_blank" rel="noopener"></a>
         <a class="btn btn--ghost btn--lg" href="#menu" id="hero-menu"></a>
       </div>
       <ul class="hero__chips" id="hero-chips"></ul>
@@ -168,6 +169,7 @@
         <h2 class="h2" id="reviews-title" data-t="reviews.title"></h2>
         <p class="lead" data-t="reviews.sub"></p>
       </header>
+      <div class="google-summary reveal" id="google-summary"></div>
       <div class="reviews" id="reviews"></div>
     </div>
   </section>
@@ -198,6 +200,46 @@
 
 <!-- ============================ MOBİL SABİT BAR ============================ -->
 <nav class="mbar" id="mbar" aria-label="Hızlı iletişim"></nav>
+
+<!-- ============================ SİPARİŞ MODALI ============================ -->
+<div class="modal-backdrop" id="order-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+  <div class="modal-overlay" id="modal-overlay" tabindex="-1"></div>
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-header__badge">
+        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <path d="M16 10a4 4 0 0 1-8 0"></path>
+        </svg>
+        <span>Online Sipariş</span>
+      </div>
+      <button type="button" class="modal-close" id="modal-close" aria-label="Kapat">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <h2 class="modal-title" id="modal-title">Sipariş Platformu Seçin</h2>
+      <p class="modal-sub">Dilediğiniz platform üzerinden menümüzü inceleyip hemen siparişinizi oluşturabilirsiniz:</p>
+
+      <div class="modal-platforms" id="modal-platforms"></div>
+
+      <div class="modal-divider">
+        <span>veya restorandan doğrudan</span>
+      </div>
+
+      <div class="modal-direct" id="modal-direct"></div>
+    </div>
+
+    <div class="modal-footer">
+      <span class="modal-footer__tag">📍 Erdemli / Mersin · Hızlı Paket Servis</span>
+    </div>
+  </div>
+</div>
 
 <noscript>
   <p style="padding:20px;text-align:center">Sipariş için bizi arayın veya WhatsApp'tan yazın.</p>

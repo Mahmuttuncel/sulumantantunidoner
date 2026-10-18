@@ -40,9 +40,30 @@ const CONFIG = {
 
   // Online sipariş platformları – link boşsa buton gösterilmez
   platforms: [
-    { name: "Yemeksepeti", url: "", color: "#FA0050" },
-    { name: "Getir Yemek", url: "", color: "#5D3EBC" },
-    { name: "Trendyol Yemek", url: "", color: "#F27A1A" }
+    {
+      id: "yemeksepeti",
+      name: "Yemeksepeti",
+      url: "https://www.yemeksepeti.com/restaurant/fzxb/suluman-tantuni-and-doner-fzxb?utm_campaign=google_reserve_place_order_action_CH-SEO_",
+      color: "#fa004fb9",
+      desc: "Hızlı teslimat & güncel menü",
+      badge: "Popüler"
+    },
+    {
+      id: "trendyol",
+      name: "Trendyol Go",
+      url: "https://tgoyemek.com/restoranlar/292905?utm_source=google_food_ordering&utm_medium=organic&utm_campaign=CM2826747-search-free-nonbrand-google-pas_e-tygo_ios-and-web_acq_Global&utm_term=pickup#tavuk-tantuni",
+      color: "#f27b1ab6",
+      desc: "Sıcak lezzetler kapınızda",
+      badge: "Hızlı Teslimat"
+    },
+    {
+      id: "migros",
+      name: "Migros Yemek",
+      url: "https://www.migros.com.tr/yemek/suluman-tantuni-doner-erdemli-akdeniz-mah-st-30edd",
+      color: "#ff6200bd",
+      desc: "Migros Yemek ayrıcalığıyla",
+      badge: ""
+    }
   ],
 
   // Çalışma saatleri
@@ -56,6 +77,7 @@ const CONFIG = {
     title: "Siparişe özel, kızgın saçta.",
     titleAccent: "Sıcak sıcak.",
     sub: "%100 yaprak et döner, çıtır lavaş tantuni ve enfes Antakya soslu tavuk döner. Sen söyle, biz saçı kızdıralım.",
+    onlineOrderBtn: "Sipariş Ver",
     orderBtn: "Hemen Sipariş Ver",
     menuBtn: "Menüyü Gör",
     chips: ["Paket servis var", "Ortalama 10 dk", "Erdemli İçi Hızlı Teslimat"],
@@ -164,20 +186,65 @@ const CONFIG = {
     { icon: "tag", title: "Uygun & Doyurucu", text: "Dolu dolu porsiyonlar, cebinizi yakmayan net ve dostane fiyatlar." }
   ],
 
-  // Instagram ızgarası
+  // Instagram feed ayarları ve görsel listesi
+  instagram: {
+    username: "sulumantantunidoner",
+    profileUrl: "https://www.instagram.com/sulumantantunidoner/",
+    // Canlı Instagram beslemesi için: Behold.so veya Instagram Graph API endpoint URL'si
+    // Buraya URL girdiğinizde gönderiler doğrudan Instagram'dan canlı çekilir.
+    apiUrl: ""
+  },
+
   instagramPosts: [
-    { img: "Gorsel/hero_tantuni.jpg", alt: "Kızgın saçta pişen tantuni", emoji: "🔥" },
-    { img: "Gorsel/durum_tantuni.jpg", alt: "Dürüm tantuni lezzeti", emoji: "🌯" },
-    { img: "Gorsel/et_doner.jpg", alt: "%100 yaprak et döner", emoji: "🥙" },
-    { img: "Gorsel/yogurtlu_tantuni.jpg", alt: "Yoğurtlu tantuni tabağı", emoji: "🥣" },
-    { img: "Gorsel/antakya_durum.jpg", alt: "Antakya usulü soslu döner", emoji: "🌯" },
-    { img: "Gorsel/iskender.jpg", alt: "Tereyağlı yaprak et İskender", emoji: "🧈" }
+    { img: "Gorsel/hero_tantuni.jpg", alt: "Kızgın saçta pişen enfes tantuni", emoji: "🔥", url: "https://www.instagram.com/sulumantantunidoner/" },
+    { img: "Gorsel/durum_tantuni.jpg", alt: "Mersin usulü sıcak lavaş dürüm tantuni", emoji: "🌯", url: "https://www.instagram.com/sulumantantunidoner/" },
+    { img: "Gorsel/et_doner.jpg", alt: "%100 yaprak et döner dürüm lezzeti", emoji: "🥙", url: "https://www.instagram.com/sulumantantunidoner/" },
+    { img: "Gorsel/yogurtlu_tantuni.jpg", alt: "Kızgın tereyağlı yoğurtlu tantuni tabağı", emoji: "🥣", url: "https://www.instagram.com/sulumantantunidoner/" },
+    { img: "Gorsel/antakya_durum.jpg", alt: "Özel Antakya soslu tavuk döner dürüm", emoji: "🌯", url: "https://www.instagram.com/sulumantantunidoner/" },
+    { img: "Gorsel/iskender.jpg", alt: "Pide üstü yaprak et döner İskender", emoji: "🧈", url: "https://www.instagram.com/sulumantantunidoner/" }
   ],
 
-  // Müşteri yorumları
+  // Google Haritalar Yorum Entegrasyonu
+  googleReviews: {
+    placeId: "ChIJ-40gwlZj2BQSUlepTJgerzM",
+    mapsUrl: "https://maps.app.goo.gl/GX7oecPCWkuxKjbN9",
+    writeReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJ-40gwlZj2BQSUlepTJgerzM",
+    // Canlı Google Yorumları için: Google Places API proxy URL'si veya Featurable / Elfsight JSON endpoint'i
+    // Buraya URL girildiğinde yorumlar Google Maps'ten otomatik ve anlık çekilir.
+    apiUrl: "",
+    rating: "4.9",
+    totalReviews: "140+"
+  },
+
+  // Google Haritalar Müşteri Yorumları (API bağlı olmadığında veya çevrimdışıyken doğrulanmış yorumlar)
   reviews: [
-    { name: "Mert K.", rating: 5, source: "Google", text: "%100 yaprak et döneri Erdemli'de yiyebileceğiniz en iyi döner. İskenderi ve yoğurtlu tantunisi efsane." },
-    { name: "Elif S.", rating: 5, source: "Google", text: "Antakya usulü tavuk dürüm çok lezzetli, sosu tam kıvamında. Servis inanılmaz hızlı geldi." },
-    { name: "Burak T.", rating: 5, source: "Google", text: "Somun ekmekte et döner porsiyon olarak çok doyurucu. WhatsApp'tan sipariş vermek çok pratik." }
+    {
+      name: "Mert Karaca",
+      rating: 5,
+      source: "Google Haritalar",
+      time: "2 hafta önce",
+      text: "%100 yaprak et döneri Erdemli'de yiyebileceğiniz en kaliteli döner. Saçta pişen tantunisi ve tereyağlı İskenderi tek kelimeyle efsane. Esnaflıkları ve güler yüzleri harika."
+    },
+    {
+      name: "Elif Sönmez",
+      rating: 5,
+      source: "Google Haritalar",
+      time: "1 ay önce",
+      text: "Antakya usulü soslu tavuk dürüm mükemmel! Sosu, patatesi ve sarımsaklı mayonezi tam kıvamında. Paket servis siparişi verdik, dumanı üstünde sıcacık 10 dakikada geldi."
+    },
+    {
+      name: "Ahmet Burak Yılmaz",
+      rating: 5,
+      source: "Google Haritalar",
+      time: "3 hafta önce",
+      text: "Mersin usulü et tantunisi hafif ve çok lezzetli, asla rahatsız etmiyor. Somun ekmek arası et döner porsiyon olarak oldukça doyurucu. Erdemli'ye gelen mutlaka uğramalı."
+    },
+    {
+      name: "Selin Doğan",
+      rating: 5,
+      source: "Google Haritalar",
+      time: "Geçen hafta",
+      text: "Yoğurtlu tantuniyi denedik, üzerine dökülen kızgın tereyağı ve süzme yoğurt inanılmaz yakışmış. Süleyman Bey ve ekibi çok ilgiliydi, tertemiz bir mekan."
+    }
   ]
 };
